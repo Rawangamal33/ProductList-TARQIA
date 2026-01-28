@@ -1,4 +1,3 @@
-import type { DialogRefProps } from '@/components/Dialogs/DialogTrigger';
 import {
   createContext,
   useContext,
@@ -9,6 +8,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from 'react';
+import type { DialogRefProps } from '../components/Dialogs/DialogTrigger';
 
 export interface DialogContextValuesProps {
   dialogRef: React.RefObject<DialogRefProps | null>;
@@ -17,7 +17,7 @@ export interface DialogContextValuesProps {
 }
 
 const DialogContext = createContext<DialogContextValuesProps | undefined>(
-  undefined
+  undefined,
 );
 
 const DialogProvider = ({ children }: { children: ReactNode }) => {
@@ -40,7 +40,7 @@ export const useDialogContext = () => {
 };
 
 export const WithDialogContext = <P extends {}>(
-  Component: ComponentType<P>
+  Component: ComponentType<P>,
 ) => {
   return function passingPropsTypes(props: P) {
     return (
