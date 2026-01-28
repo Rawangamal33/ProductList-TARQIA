@@ -9,13 +9,22 @@ This project demonstrates React fundamentals, component structure, state managem
 
 - **Fetch Products**: Uses Axios to fetch products from [FakeStore API](https://fakestoreapi.com/products) on page load.
 - **AbortController**: Cancels in-flight requests when components unmount to prevent memory leaks and unnecessary network calls.
+- **UseDebounce**: Delays search execution by 500ms to optimize performance and reduce unnecessary re-renders and API calls during typing..
 - **Display Products**: Products are displayed in a responsive grid using a reusable `ProductCard` component.
 - **Search Functionality**: Includes a debounced search input to filter products by title efficiently.
 - **Product Details Modal**: Clicking a product opens a modal with detailed information, including description, category, and rating. Built with a reusable dialog system.
 - **Loading States**: Shows a spinner while fetching data.
 - **Error Handling**: 
   - API errors are displayed using a reusable `ErrorScope` component.
-  - Runtime errors are caught with an `ErrorBoundary` to prevent the app from crashing.
+  - Runtime errors are caught with an `ErrorBoundary` to prevent the app from crashing(used Ract-Error-Boundary).
+- **Component Architecture**: 
+  - Reusable Components: ProductCard, DialogCom, ErrorScope.
+  - Composition Pattern: DialogTrigger wraps components for modal functionality.
+  - Context API: DialogProvider manages dialog state across components.
+- **State Management**: 
+  - Local State: useState for search term and UI state.
+  - Custom Hooks: Encapsulate API logic and debouncing.
+  - Memoization: useMemo for optimized filtering.
 - **Empty State Handling**: Gracefully informs the user when no products match the search criteria.
 
 ---
@@ -31,57 +40,48 @@ This project demonstrates React fundamentals, component structure, state managem
 
 ---
 
-## Project Structure (Simplified)
+## Project Structure
 
-+---public
-|       vite.svg
-|       
-\---src
-    |   App.tsx
-    |   index.css
-    |   main.tsx
-    |   
-    +---assets
-    |       react.svg
-    |       shopIcon.png
-    |       
-    +---components
-    |   +---Dialogs
-    |   |       DialogCom.tsx
-    |   |       DialogHeader.tsx
-    |   |       DialogTrigger.tsx
-    |   |       
-    |   +---ErrorHandlers
-    |   |       ErrorBoundaryFallback.tsx
-    |   |       ErrorScope.tsx
-    |   |       
-    |   +---Loaders
-    |   |       CircularProgress.tsx
-    |   |       
-    |   \---ui
-    |       |   Header.tsx
-    |       |   
-    |       \---ProductList
-    |               ProductCard.tsx
-    |               ProductDetailsDialog.tsx
-    |               ProductList.tsx
-    |               
-    +---context
-    |       DialogProvider.tsx
-    |       
-    +---hooks
-    |       useDebounce.ts
-    |       useProducts.ts
-    |       
-    +---pages
-    |       Home.tsx
-    |       
-    +---services
-    |       api.ts
-    |       
-    \---types
-            error.ts
-            product.ts
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── assets/
+│   │   ├── react.svg
+│   │   └── shopIcon.png
+│   ├── components/
+│   │   ├── Dialogs/
+│   │   │   ├── DialogCom.tsx
+│   │   │   ├── DialogHeader.tsx
+│   │   │   └── DialogTrigger.tsx
+│   │   ├── ErrorHandlers/
+│   │   │   ├── ErrorBoundaryFallback.tsx
+│   │   │   └── ErrorScope.tsx
+│   │   ├── Loaders/
+│   │   │   └── CircularProgress.tsx
+│   │   └── ui/
+│   │       ├── Header.tsx
+│   │       └── ProductList/
+│   │           ├── ProductCard.tsx
+│   │           ├── ProductDetailsDialog.tsx
+│   │           └── ProductList.tsx
+│   ├── context/
+│   │   └── DialogProvider.tsx
+│   ├── hooks/
+│   │   ├── useDebounce.ts
+│   │   └── useProducts.ts
+│   ├── pages/
+│   │   └── Home.tsx
+│   ├── services/
+│   │   └── api.ts
+│   ├── types/
+│   │   ├── error.ts
+│   │   └── product.ts
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── .env
+├── package.json
+└── README.md
             
 
 ## Setup Instructions
@@ -89,7 +89,7 @@ This project demonstrates React fundamentals, component structure, state managem
 1. Clone the repository:
    ```bash
    git clone <your-repo-url>
-
+cd product-list-dashboard
 
 2. Install dependencies:
    npm install
