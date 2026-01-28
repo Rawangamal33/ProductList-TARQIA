@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# Product List Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that displays a list of products, allows searching, and shows product details in a modal.  
+This project demonstrates React fundamentals, component structure, state management, API handling, and attention to UI/UX details.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Fetch Products**: Uses Axios to fetch products from [FakeStore API](https://fakestoreapi.com/products) on page load.
+- **AbortController**: Cancels in-flight requests when components unmount to prevent memory leaks and unnecessary network calls.
+- **Display Products**: Products are displayed in a responsive grid using a reusable `ProductCard` component.
+- **Search Functionality**: Includes a debounced search input to filter products by title efficiently.
+- **Product Details Modal**: Clicking a product opens a modal with detailed information, including description, category, and rating. Built with a reusable dialog system.
+- **Loading States**: Shows a spinner while fetching data.
+- **Error Handling**: 
+  - API errors are displayed using a reusable `ErrorScope` component.
+  - Runtime errors are caught with an `ErrorBoundary` to prevent the app from crashing.
+- **Empty State Handling**: Gracefully informs the user when no products match the search criteria.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** (functional components, hooks: `useState`, `useEffect`, `useMemo`)  
+- **TypeScript** for type safety  
+- **Axios** for API requests  
+- **Tailwind CSS** for styling  
+- **Material UI** for Dialogs and Rating components  
+- **Vite** as the build tool  
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure (Simplified)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
++---public
+|       vite.svg
+|       
+\---src
+    |   App.tsx
+    |   index.css
+    |   main.tsx
+    |   
+    +---assets
+    |       react.svg
+    |       shopIcon.png
+    |       
+    +---components
+    |   +---Dialogs
+    |   |       DialogCom.tsx
+    |   |       DialogHeader.tsx
+    |   |       DialogTrigger.tsx
+    |   |       
+    |   +---ErrorHandlers
+    |   |       ErrorBoundaryFallback.tsx
+    |   |       ErrorScope.tsx
+    |   |       
+    |   +---Loaders
+    |   |       CircularProgress.tsx
+    |   |       
+    |   \---ui
+    |       |   Header.tsx
+    |       |   
+    |       \---ProductList
+    |               ProductCard.tsx
+    |               ProductDetailsDialog.tsx
+    |               ProductList.tsx
+    |               
+    +---context
+    |       DialogProvider.tsx
+    |       
+    +---hooks
+    |       useDebounce.ts
+    |       useProducts.ts
+    |       
+    +---pages
+    |       Home.tsx
+    |       
+    +---services
+    |       api.ts
+    |       
+    \---types
+            error.ts
+            product.ts
+            
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Setup Instructions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+2. Install dependencies:
+   npm install
+
+3. Create a .env file:
+   VITE_BASE_URL=https://fakestoreapi.com
+
+4.  Run the project:
+   npm run dev
+
+
