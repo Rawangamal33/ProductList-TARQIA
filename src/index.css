@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bgColor: #f1f5f9;
+  --color-darkNavy: #2d338c;
+  --color-lightNavy: #4f46e5;
+  --color-mainText: #1e293b;
+  --color-secondText: #64748b;
+  --shadow-generalShadow:
+    0 10px 15px -6px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
